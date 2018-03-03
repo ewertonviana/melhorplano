@@ -4,26 +4,25 @@ import morgan from 'morgan';
 import middleware from './middleware';
 import api from './api';
 import config from './config.json';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack';
+import fs from 'fs';
+import path from 'path';
 
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('../webpack');
-const fs = require('fs');
-const path = require("path");
+const compiler = webpack(webpackConfig);
+const app = express();
 
-let app = express();
 app.server = http.createServer(app);
 
 app.use(morgan('dev'));
-
 
 app.use(middleware());
 
 app.use('/api', api());
 
 app.use('/', express.static('src/public/app'));
-const compiler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(compiler, { 
 	noInfo: false, 
@@ -39,7 +38,9 @@ app.use(webpackDevMiddleware(compiler, {
 		modules: false
 	}
 }));
+
 app.use(webpackHotMiddleware(compiler));
+
 app.use(express.static(path.join(__dirname, 'src/public/')));
 
 app.get('*', function response(req, res) {
