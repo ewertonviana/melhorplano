@@ -43,7 +43,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(path.join(__dirname, 'src/public/')));
 
-app.get('*', function response(req, res) {
+app.get('*', (req, res) => {
 	res.set('Content-Type', 'text/html');
 	res.write(fs.readFileSync(path.join(__dirname, 'public/index.html'), { encoding: 'utf-8' }).replace(
 		'<script src="https://apis.google.com/js/api.js"></script>', 

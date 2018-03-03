@@ -1,8 +1,9 @@
-var webpack = require('webpack');
-var os = require('os');
-var serverName = '';
+import webpack from 'webpack';
+import os from 'os';
 
-module.exports = {
+const serverName = '';
+
+export default {
     devtool: 'eval-source-map',
     entry: {
         app: [

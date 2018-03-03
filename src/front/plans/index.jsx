@@ -70,7 +70,9 @@ const Plan = ({plan}) =>  {
             Planos de Banda Larga
           </p>          
         </PageHeader>
-        <Jumbotron>      
+        <h6>{that.state.plans.length} Planos</h6>    
+        <Jumbotron>  
+
           
             { 
               !that.state.plans.length ? false :

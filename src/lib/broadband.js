@@ -1,5 +1,5 @@
-const fs = require('fs');
-const _ = require('lodash');
+import fs from 'fs';
+import _ from 'lodash';
 
 Array.prototype.unique = function() {
     var a = this.concat();
@@ -23,10 +23,7 @@ Array.prototype.clean = function(deleteValue) {
   return this;
 };
 
-
-
 const getCombinations = (items, connections, item, currentConnections, currentItems, currentTypes) => {
-
 	const nodes = getNodes(currentConnections, item.name);
 
 	let plans = [currentItems];
@@ -42,7 +39,6 @@ const getCombinations = (items, connections, item, currentConnections, currentIt
 				newItem = getItem(items, node.a);
 			}
 
-			
 			plans.map((plan) => {
 				if(!getTypes(items, plan).includes(newItem.type) || (newItem.type == 'addon' && !plan.includes(newItem.name))){
 					plans = plans.concat(
@@ -54,45 +50,6 @@ const getCombinations = (items, connections, item, currentConnections, currentIt
 		})
 	}
     return plans;
-}
-
-const getItem = (items, name) => {
-    return items.filter((item) => {
-    	return item.name == name 
-    })[0];
-}
-
-const getTypes = (items, plan) => {
-    return plan.map((itemPlan) => {
-    	return items.filter((item) => {
-    		return item.name == itemPlan
-    	})[0].type
-    });
-}
-
-
-const getBroadbands = (items) => {
-    return items.filter((item) => {
-    	return item.type == 'bb' 
-    });
-}
-
-const getNodes = (connections, node) => {
-    return connections.filter((connection) => {
-    	return connection.a == node || connection.b == node;
-    });
-}
-
-const getConnection = (connections, node) => {
-    return connections.filter((connection) => {
-    	return (connection.a == node.a && connection.b == node.b) || (connection.a == node.b && connection.b == node.a);
-    })[0];
-}
-
-const rmConnection = (connections, node) => {
-    return connections.filter((connection) => {
-    	return !(connection.a == node.a && connection.b == node.b);
-    });
 }
 
 const planMount  = (items, connections, combinations) => {
@@ -149,9 +106,9 @@ const getData = (items, connections, combination) => {
 	})
 
 	return { 
-		name: name,
-		total: total,
-		diff: diff,
+		name,
+		total,
+		diff,
 		items: planItems
 	}
 }
@@ -174,6 +131,44 @@ const sortByItems = (items, combination) => {
 	combinationNew.clean();
 
 	return combinationNew;
+}
+
+const getItem = (items, name) => {
+    return items.filter((item) => {
+    	return item.name == name 
+    })[0];
+}
+
+const getTypes = (items, plan) => {
+    return plan.map((itemPlan) => {
+    	return items.filter((item) => {
+    		return item.name == itemPlan
+    	})[0].type
+    });
+}
+
+const getBroadbands = (items) => {
+    return items.filter((item) => {
+    	return item.type == 'bb' 
+    });
+}
+
+const getNodes = (connections, node) => {
+    return connections.filter((connection) => {
+    	return connection.a == node || connection.b == node;
+    });
+}
+
+const getConnection = (connections, node) => {
+    return connections.filter((connection) => {
+    	return (connection.a == node.a && connection.b == node.b) || (connection.a == node.b && connection.b == node.a);
+    })[0];
+}
+
+const rmConnection = (connections, node) => {
+    return connections.filter((connection) => {
+    	return !(connection.a == node.a && connection.b == node.b);
+    });
 }
 
 

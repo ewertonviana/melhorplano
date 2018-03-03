@@ -1,9 +1,8 @@
 import resource from 'resource-router-middleware';
-import * as BB from '../lib/broadband'
-
-const fs = require('fs');
-const _ = require('lodash'); 
-const path = require("path");
+import fs from 'fs';
+import _ from 'lodash';
+import path from "path";
+import * as BB from '../lib/broadband';
 
 export default () => resource({
 
