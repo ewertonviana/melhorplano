@@ -107,8 +107,8 @@ const getData = (items, connections, combination) => {
 
 	return { 
 		name,
-		total,
-		diff,
+		total: total.toFixed(2),
+		diff: diff.toFixed(2),
 		items: planItems
 	}
 }

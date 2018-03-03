@@ -1,7 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
 import config from '../../config.json';
+import * as utils from '../../lib/utils';
 import { Grid, Row, Col, Panel, ListGroup, ListGroupItem, Jumbotron, PageHeader, Label }  from 'react-bootstrap'
+
 
 const Plan = ({plan}) =>  {
   return (
@@ -9,11 +11,11 @@ const Plan = ({plan}) =>  {
       <Panel bsStyle="primary">
         <Panel.Heading><strong>Plano {plan.name}</strong></Panel.Heading>
         <Panel.Body>
-          Valor do plano: <strong>R$ {plan.total}</strong>          
+          Valor do plano: <strong>{utils.getCurrency(plan.total)}</strong>          
         </Panel.Body>
           {
             // plan.diff >= 0 ? false : (
-            //   <Label bsStyle="success">Economia de R$ {plan.diff}</Label>              
+            //   <Label bsStyle="success">Economia de {utils.getCurrency(plan.total)}</Label>              
             // )
           } 
         <ListGroup>
